@@ -65,48 +65,48 @@ def legalCheck(brd, color, r, c): #returns array of number of disks that can be 
     if c < 6 and r > 1:
         flippableDisks = 0
         for i in range(1, min(8 - c, r + 1)):
-            if brd[r - i][c + i] == color:
+            if brd[r-i][c+i] == color:
                 uprightCheck = flippableDisks
                 break
-            elif brd[r - i][c + i] == -color:
+            elif brd[r-i][c+i] == -color:
                 flippableDisks += 1    
-            elif brd[r - i][c + i] == 0:
+            elif brd[r-i][c+i] == 0:
                 break
 
     upleftCheck = 0
     if c > 1 and r > 1:
         flippableDisks = 0
         for i in range(1, min(c + 1, r + 1)):
-            if brd[r - i][c - i] == color:
+            if brd[r-i][c-i] == color:
                 upleftCheck = flippableDisks
                 break
-            elif brd[r - i][c - i] == -color:
+            elif brd[r-i][c-i] == -color:
                 flippableDisks += 1    
-            elif brd[r - i][c - i] == 0:
+            elif brd[r-i][c-i] == 0:
                 break
 
     downleftCheck = 0
     if c > 1 and r < 6:
         flippableDisks = 0
         for i in range(1, min(c + 1, 8 - r)):
-            if brd[r + i][c - i] == color:
+            if brd[r+i][c-i] == color:
                 downleftCheck = flippableDisks
                 break
-            elif brd[r + i][c - i] == -color:
+            elif brd[r+i][c-i] == -color:
                 flippableDisks += 1    
-            elif brd[r + i][c - i] == 0:
+            elif brd[r+i][c-i] == 0:
                 break
 
     downrightCheck = 0
     if c < 6 and r < 6:
         flippableDisks = 0
         for i in range(1, min(8 - c, 8 - r)):
-            if brd[r + i][c + i] == color:
+            if brd[r+i][c+i] == color:
                 downrightCheck = flippableDisks
                 break
-            elif brd[r + i][c + i] == -color:
+            elif brd[r+i][c+i] == -color:
                 flippableDisks += 1    
-            elif brd[r + i][c + i] == 0:
+            elif brd[r+i][c+i] == 0:
                 break
 
     legal = [rightCheck, leftCheck, downCheck, upCheck, uprightCheck, upleftCheck, downleftCheck, downrightCheck]
@@ -116,7 +116,7 @@ def legalPlacements(brd, color): #returns array of legal placements
     output = []
     for i in range(8):
         for j in range(8):
-            if sum(legalCheck(brd, color, i, j)) > 0:
+            if brd[i][j] == 0 and sum(legalCheck(brd, color, i, j)) > 0:
                 output.append([i, j])
     return output
 
@@ -154,36 +154,42 @@ def placeDisk(brd, color, r, c):
 
     if flippableDisksDirection[4] > 0:
         for i in range(1, min(8 - c, r + 1)):
-            if brd[r - i][c + i] == color:
+            if brd[r-i][c+i] == color:
                 break
-            elif brd[r - i][c + i] == -color:
-                brd[r - i][c + i] = color
+            elif brd[r-i][c+i] == -color:
+                brd[r-i][c+i] = color
 
     if flippableDisksDirection[5] > 0:
         for i in range(1, min(c + 1, r + 1)):
-            if brd[r - i][c - i] == color:
+            if brd[r-i][c-i] == color:
                 break
-            elif brd[r - i][c - i] == -color:
-                brd[r - i][c - i] = color
+            elif brd[r-i][c-i] == -color:
+                brd[r-i][c-i] = color
 
     if flippableDisksDirection[6] > 0:
         for i in range(1, min(c + 1, 8 - r)):
-            if brd[r + i][c - i] == color:
+            if brd[r+i][c-i] == color:
                 break
-            elif brd[r + i][c - i] == -color:
-                brd[r + i][c - i] = color
+            elif brd[r+i][c-i] == -color:
+                brd[r+i][c-i] = color
 
     if flippableDisksDirection[7] > 0:
         for i in range(1, min(8 - c, 8 - r)):
-            if brd[r + i][c + i] == color:
+            if brd[r+i][c+i] == color:
                 break
-            elif brd[r + i][c + i] == -color:
-                brd[r + i][c + i] = color
+            elif brd[r+i][c+i] == -color:
+                brd[r+i][c+i] = color
 
     return brd
 
 
-
-#main game board
-board = resetboard()
-board = placeDisk(board, 1, 0, 0)
+def count(brd):
+    whitepoint = 0
+    blackpoint = 0
+    for r in range(8):
+        for c in range(8):
+            if brd[r][c] == 1:
+                whitepoint += 1
+            elif brd[r][c] == -1:
+                blackpoint += 1
+    return (whitepoint, blackpoint)

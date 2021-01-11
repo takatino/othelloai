@@ -8,11 +8,10 @@ class Network:
         self.weights = []
 
         for i in range(self.numberOfLayers - 1):
-            self.biases.append(numpy.random.randn(sizes[i + 1], 1))
-
-        for i in range(self.numberOfLayers - 1):
             self.weights.append(numpy.random.randn(sizes[i+1], sizes[i]))
 
+        for i in range(self.numberOfLayers - 1):
+            self.biases.append(numpy.random.randn(sizes[i + 1], 1))
 
     def feedforward(self, input):
         for i in range(self.numberOfLayers - 1):
@@ -24,6 +23,16 @@ class Network:
         self.weights = list(w)
         self.biases = list(b)
 
+    def scramble(self):
+        newWeights = []
+        newBiases = []
+        for i in range(self.numberOfLayers - 1):
+            newWeights.append(numpy.random.randn(self.sizes[i+1], self.sizes[i]))
+        
+        for i in range(self.numberOfLayers - 1):
+            newBiases.append(numpy.random.randn(self.sizes[i + 1], 1))
+        
+        return (newWeights, newBiases)
 
 def sigmoid(z):
     for i in range(len(z)):
