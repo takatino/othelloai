@@ -10,7 +10,7 @@ class Population():
 
         for i in range(popsize):
             nn.weights, nn.biases = nn.scramble()
-            self.population.append([numpy.random.randint(0, 100), nn.weights, nn.biases]) #[[fitness, weights, biases], ...]
+            self.population.append([0, nn.weights, nn.biases]) #[[fitness, weights, biases], ...]
 
     #orders population by score(highest to lowest), then normalizes that score    
     def rank(self):
@@ -108,6 +108,9 @@ class Population():
         for i in range(len(newpopulation), self.popsize):
             baby = [0, self.nn.scramble()[0], self.nn.scramble()[1]]
             newpopulation.append(baby)
+
+        for i in range(len(newpopulation)):
+            newpopulation[i][0] = 0
 
         self.generation += 1
         return newpopulation
