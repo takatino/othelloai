@@ -101,6 +101,10 @@ def reset(player1, player2):
  
 
     score = count(board)
+    
+    #print(board)
+    #print(score)
+    #print("------------------------------------------------")
 
     if player1 == cpu1 and player2 == cpu2:
         if score[0] > score[1]:

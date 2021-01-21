@@ -1,6 +1,8 @@
+import numpy
+
 def resetboard():
     # 1: white, -1: black, 0: none
-    return list([[0, 0, 0, 0, 0, 0, 0, 0],
+    return numpy.array([[0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 0, 0, 1,-1, 0, 0, 0],
