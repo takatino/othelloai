@@ -9,9 +9,9 @@ import numpy
 board = resetboard()
 
 network1 = Network([64, 8, 8, 8, 64])
-cpu1 = Population(50, network1)
+cpu1 = Population(20, network1)
 network2 = Network([64, 8, 8, 8, 64])
-cpu2 = Population(50, network2)
+cpu2 = Population(20, network2)
 network3 = Network([64, 8, 8, 8, 64])
 cpu3 = Population(1, network3)
 
@@ -105,7 +105,7 @@ def reset(player1, player2):
     #print(board)
     #print(score)
     #print("------------------------------------------------")
-
+    
     if player1 == cpu1 and player2 == cpu2:
         if score[0] > score[1]:
             cpu1.population[cpu1id][0] += 3
@@ -120,7 +120,8 @@ def reset(player1, player2):
 
         cpu2id += 1
         if cpu2id == cpu2.popsize - 1 and cpu1id == cpu1.popsize - 1:
-            print(scorecount)
+            print("------------")
+            print("white, black, tie", scorecount)
             scorecount = [0, 0, 0]
 
             cpu2id = 0
@@ -148,11 +149,13 @@ def reset(player1, player2):
         else:
             scorecount[2] += 1
 
-
+        network3.scramble()
+        
         if sum(scorecount) == 100:
-            print("fitnesstest:", scorecount)
+            print("fitnesstest(win, loss, tie): ", scorecount)
             scorecount = [0, 0, 0]
             fitnesstest = 0
+
         
 
 
@@ -171,3 +174,4 @@ while training == 1:
         loop(cpu1, cpu2)
     elif fitnesstest == 1:
         loop(cpu1, cpu3)
+        
